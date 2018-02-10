@@ -26,6 +26,7 @@ class DLinkedList {
     } else {
       let currentNode = new Node(key, value);
       currentNode.next = this.head;
+      //add in the pre node
       this.head = currentNode;
     }
 
