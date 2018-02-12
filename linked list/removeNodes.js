@@ -1,20 +1,22 @@
-let removeNodes = (list, target) => {
-  let dummyHead = {value: null, next: list};
-  let current = dummyHead;
-  let previous = dummyHead;
+const removeNodes = (list, target) => {
+  let dummyHead = {
+    value: null,
+    next: list,
+  };
 
-  while (current) {
-    if (current.value === target) {
-      previous.next = current.next;
-      current.next = null;
-      current = previous.next;
+  let currentNode = dummyHead.next;
+  let previousNode = dummyHead;
+
+  while (currentNode) {
+    if (currentNode.value === target) {
+      previousNode.next = currentNode.next;
     } else {
-      previous = current;
-      current = current.next;
+      previousNode = currentNode;
     }
+    currentNode = currentNode.next;
   }
   return dummyHead.next;
-};
+}
 
 let listA = {
   value: 3, next: {
@@ -29,8 +31,8 @@ let listA = {
   };
 
 console.log(
-  // removeNodes(listA, 7),
-  removeNodes(listA, 3)
+  removeNodes(listA, 7)
+  //removeNodes(listA, 3)
 );
 
 
