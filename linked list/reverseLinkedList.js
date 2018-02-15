@@ -1,27 +1,3 @@
-const reverseLL = (list) => {
-  let newHead = {
-    value: null,
-    next: null,
-  };
-  let currentNode = list;
-
-  while(currentNode) {
-    let holder = currentNode.next;
-    currentNode.next = newHead;
-    newHead = currentNode; 
-    currentNode = holder;
-  }
-  
-  // let checkList = newHead;
-
-  // while(checkList) {
-  //   console.log(checkList.value);
-  //   checkList = checkList.next;
-  // }
-
-  return newHead;
-}
-
 // STRATEGY
 // make a holder for next node
 // currentNode's next is newHead
@@ -40,6 +16,20 @@ let listA = {
     }
   };
 
-console.log(
-  reverseLL(listA)
-)
+// console.log(
+//   reverseLL(listA)
+// )
+
+var reverseList = function (head) {
+  let newHead = null;
+  while (head) {
+    let storeNext = head.next;
+
+    head.next = newHead;
+    newHead = head;
+    head = storeNext;
+  }
+  return newHead;
+};
+
+console.log(reverseList(listA));

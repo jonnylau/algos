@@ -3,36 +3,37 @@
 // node's value, insert it at that point.
 
 const insertSort = (list) => {
-  let newList = {
-    value: null,
-    next: null,
-  }
-  let newHead = newList;
+  let originalList = list.next;
+  let newList = list;
+  let newListHead = list;
 
-  while (list) {
-    let nextInList = list.next;
-    // initialize
-    if (!newHead.next) {
-      list.next = null;
-      newList.next = list;
-      break;
-    }
-    // list value is < newList value
-    while (newList) {
-      let prevNode = newList;
-      let currNode = newList.next;
-      if (list.value <= currNode.value) {
-        list.next = currNode.next;
-        prevNode.next = list;
-        newList = newHead;
-      } else {
-        newList = newList.next;
+  newList.next = null;
+  
+  while (originalList) {
+    let nextOriginalList = originalList.next;
+    // console.log(newList);
+
+    while(newList) {
+      let nextNewList = newList.next;
+      
+      if (originalList.value <= newList.value) {
+        originalList.next = newList;
+        if (newList === newListHead) newListHead = originalList;
+      } else if (!newList.next) {
+        originalList.next = null;
+        newList.next = originalList;
+        break;
+      } else if (originalList.value >= newList.value && originalList.value <= newList.next.value) {
+        originalList.next = newList.next;
+        newList.next = originalList;
+        break;
       }
+      newList = nextNewList;
     }
-    newList = newHead;
-    list = nextInList;
+    newList = newListHead;
+    originalList = nextOriginalList;
   }
-  return newList;
+  return newListHead;
 }
 // TRANSFORMATION
 // 100  NL: 100
@@ -46,9 +47,8 @@ const insertSort = (list) => {
 let listA = {
   value: 100, next: {
     value: 2, next: {
-      value: 30, next: {
-        value: 1, next: {
-        }
+      value: 300, next: {
+        value: 4, next: null
       }
     }
   }
