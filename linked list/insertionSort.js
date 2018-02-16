@@ -2,16 +2,15 @@
 // STRATEGY -> make a new LL.  As you traverse the original list, iterate through the new LL, and if it's less than the current
 // node's value, insert it at that point.
 
-const insertSort = (list) => {
-  let originalList = list.next;
-  let newList = list;
-  let newListHead = list;
+const insertSort = (head) => {
+  let originalList = head.next;
+  let newList = head;
+  let newListHead = head;
 
   newList.next = null;
   
   while (originalList) {
     let nextOriginalList = originalList.next;
-    // console.log(newList);
 
     while(newList) {
       let nextNewList = newList.next;
@@ -35,7 +34,7 @@ const insertSort = (list) => {
   }
   return newListHead;
 }
-// TRANSFORMATION
+// TRANSFORMATIONgit 
 // 100  NL: 100
 // 2  NL: 2, 100
 // 30  NL: 2, 100
