@@ -8,12 +8,12 @@ const highestReturn = (prices) => {
   let maxProfit = prices[1] - prices[0];
 
   for (let i = 2; i < prices.length; i++) {
-    
     maxProfit = Math.max(maxProfit, prices[i] - lowest);
     lowest = Math.min(lowest, prices[i])
   }
-  return maxProfit >=0 ? maxProfit : -1;
+  return maxProfit >= 0 ? maxProfit : -1;
 }
+
 console.log(
   highestReturn(prices),
   highestReturn(pricesA)
