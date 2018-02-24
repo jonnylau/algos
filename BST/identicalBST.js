@@ -11,7 +11,8 @@ const identical = (tree1, tree2) => {
     return false;
   }
 };
-//strategy
+
+// STRATEGY
 // KEY TIP -> BASE CASE: LEAF (leaf is a tree, where left and right are null)
 // Tree is identical when it's 1. value, and it's 2. left and 3. right branches are the same
 // base case:  hitting a leaf -> current leaf's values are the same and both branches === null
@@ -28,7 +29,7 @@ let treeA = {
     right: {
       value: 9,
       left: null,
-      right: null,
+      right: null,  
     }
   },
   right: {
@@ -115,5 +116,6 @@ let treeC = {
 
 console.log(
   identical(treeA, treeB),
-  identical(treeA, treeC)
+  identical2(treeA, treeC),
+  identical2(treeA, treeB)
   )

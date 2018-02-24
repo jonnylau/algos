@@ -63,7 +63,6 @@ var getIntersectionNode = function (headA, headB) {
   for (let i = 0; i < countDiff; i++) {
     largerList = largerList.next;
   }
-  // console.log(countDiff, largerList, smallerList);
   while (smallerList) {
     if (smallerList === largerList) return smallerList;
     smallerList = smallerList.next;
