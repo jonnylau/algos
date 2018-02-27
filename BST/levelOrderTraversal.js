@@ -59,3 +59,5 @@ console.log(
 //STRATEGY BFS ->
 // Have a current LEVEL and Next Level queue.  When there is something in the current level queue, add it's left and right in, then remove it from stack
 // when there is nothing, switch the stacks
+
+// LEFT - CENTER - RIGHT
