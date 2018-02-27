@@ -13,7 +13,7 @@ const highestReturn = (prices) => {
   }
   return maxProfit >= 0 ? maxProfit : -1;
 }
-
+// return -1 if there is no profit to be made
 console.log(
   highestReturn(prices),
   highestReturn(pricesA)
