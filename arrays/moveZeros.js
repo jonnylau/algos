@@ -1,25 +1,61 @@
-let moveZeros = (array) => {
-  let read = 0;
-  let write = 0;
+// let moveZeros = (array) => {
+//   let read = 0;
+//   let write = 0;
+//   while (read < array.length) {
+//     if (array[read] === 0) read += 1;
+//     else {
+//       array[write] = array[read];
+//       write += 1;
+//       read += 1;
+//     }
+//   }
+//   while (write < array.length) {
+//     array[write] = 0;
+//     write ++;
+//   }
+//   return array;
+// }
+
+let testArray = [0,3,4,5,0,9,3,1,0];
+
+const moveZerosRight = (array) => {
+  let read = 0,
+      write = 0;
+
   while (read < array.length) {
-    if (array[read] === 0) read += 1;
-    else {
+    if (array[read] !== 0 && array[write] === 0) {
       array[write] = array[read];
+      array[read] = 0;
       write += 1;
-      read += 1;
+    } else if (array[write] !== 0) {
+      write += 1;
     }
+    read += 1; 
   }
-  while (write < array.length) {
-    array[write] = 0;
-    write ++;
+  return array;    
+}
+
+const moveZerosLeft = (array) => {
+  let read = array.length -1,
+      write = array.length -1;
+  
+  while (read >= 0) {
+    console.log(read,write);
+    if (array[read] !== 0 && array[write] === 0) {
+      array[write] = array[read];
+      array[read] = 0;
+      write -= 1;
+    } else if (array[write] !== 0) {
+      write -=1;
+    }
+    read -= 1;
   }
   return array;
 }
 
-let array = [0,3,4,5,0,9,3,1,0];
-
 console.log(
-  moveZeros(array)
+  //moveZerosRight(testArray),
+  moveZerosLeft(testArray)
 )
 
 // STRATEGY : ITERATE AND REPLACE WITH THE NEXT CHARACTER IF IT'S NOT ZERO (DUPLICATE THEN REPLACE LOOP).
