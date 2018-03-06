@@ -41,4 +41,42 @@ const sumTwoValues_sort = (array, target) => {
   }
 }
 
-console.log(sumTwoValues_sort(input, 10));
+//console.log(sumTwoValues_sort(input, 10));
+
+const sumTwo1 = (array, target) => {
+  let itereatedNums = {};
+
+  for (num of array) {
+    let difference = target - num;
+    console.log(difference, itereatedNums)
+    if (itereatedNums[difference]) {
+      return [num, difference];
+    } else {
+      itereatedNums[num] = 1;
+    }
+  }
+  return null;
+}
+// console.log(
+//   sumTwo1(input, 12)
+// )
+
+const sumTwoSort1 = (array, target) => {
+  let sorted = array.slice().sort();
+  let low = 0,
+      high = sorted.length - 1;
+  
+  while (high !== low) {
+    if (sorted[high] + sorted[low] > target) {
+      high -= 1;
+    } else if (sorted[high] + sorted[low] < target) {
+      low += 1;
+    } else if (sorted[high] + sorted[low] === target) {
+      return [sorted[low], sorted[high]];
+    }
+  }
+  return null;
+}
+console.log(
+  sumTwoSort1(input, 12)
+);

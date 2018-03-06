@@ -37,6 +37,37 @@ const merge = (meetings) => {
   return output;
 }
 
+const merge1 = (meetings) => {
+  let sortedMeetings = meetings.slice().sort( (a,b) => {
+    return a.startTime - b.startTime;
+  });
+
+  let output = [];
+  let gatherMeeting = sortedMeetings[0];
+  console.log(sortedMeetings);
+  
+  for (let i = 1; i < sortedMeetings.length; i++) {
+    if (gatherMeeting.startTime <= sortedMeetings[i].startTime && gatherMeeting.endTime >= sortedMeetings[i].startTime) {
+      console.log('overlapping');
+      gatherMeeting.endTime = sortedMeetings[i].endTime;
+    } else {
+      output.push(gatherMeeting);
+      gatherMeeting = sortedMeetings[i];
+    }
+  }
+  output.push(gatherMeeting);
+
+  return output;
+}
+  // init current meeting index 
+  // iterate through the array of meetings @ i = 1
+    //  if meeting's startTime is within the first meeting's time
+    //  update current Meeting's end
+    //  ! => push the currentMeeting to the output
+      // currentMeeting.start +.end 
+
+
+
 console.log(
-  merge(meetings1)
+  merge1(meetings1)
 )
