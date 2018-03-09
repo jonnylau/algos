@@ -56,7 +56,15 @@ let treeA = {
   }
 };
 
+const getAllNodeValuesDFS1 = (tree, output) => {
+  if (!tree) return [];
+  return [tree.value]
+    .concat(getAllNodeValuesDFS1(tree.left))
+    .concat(getAllNodeValuesDFS1(tree.right))
+} 
+
 console.log(
-  getAllNodeValuesDFS(treeA),
-  getAllNodeValuesBFS(treeA)
+  getAllNodeValuesDFS1(treeA)
+  //getAllNodeValuesDFS(treeA),
+  // getAllNodeValuesBFS(treeA)
 )
