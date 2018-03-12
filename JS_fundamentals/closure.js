@@ -124,7 +124,19 @@ function wait(message) {
 // ====================================================================================================
 //                                          MODULE
 // ====================================================================================================
+/*
+To state it more simply, there are two "requirements" for the module pattern to be exercised:
 
+There must be an outer enclosing function, and it must be invoked at least once (each time creates a new module 
+  instance).
+
+The enclosing function must return back at least one inner function, so that this inner function has closure 
+over the private scope, and can access and/or modify that private state.
+
+An object with a function property on it alone is not really a module. An object which is returned from a function 
+invocation which only has data properties on it and no closured functions is not really a module, in the observable 
+sense.
+*/
 
 const coolModule = () => {
   let something = 'cool';
@@ -144,5 +156,31 @@ const coolModule = () => {
 }
 
 let singleTon = coolModule();
-singleTon.doSomething();
-singleTon.doAnother();
+// singleTon.doSomething();
+// singleTon.doAnother();
+
+
+
+let exampleModule = ((id) => {
+  let stateID = () => {
+    console.log(id)
+  };
+  let idToUpper = () => {
+    console.log(id.toUpperCase());
+  };
+  let changeID = (newID) => {
+    id = newID;
+  };
+  
+  let publicAPI = {
+    stateID: stateID,
+    idToUpper: idToUpper,
+    changeID: changeID,
+  }
+  return publicAPI;
+
+})('someguy');
+
+exampleModule.stateID();
+exampleModule.changeID('buddy');
+exampleModule.stateID();
