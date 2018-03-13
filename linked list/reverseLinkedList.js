@@ -16,20 +16,19 @@ let listA = {
     }
   };
 
-// console.log(
-//   reverseLL(listA)
-// )
+const reverseLL = (list) => {
+  let newListHead = null;
 
-var reverseList = function (head) {
-  let newHead = null;
-  while (head) {
-    let storeNext = head.next;
-
-    head.next = newHead;
-    newHead = head;
-    head = storeNext;
+  while (list) {
+    let next = list.next;
+    list.next = newListHead;
+    newListHead = list;
+    list = next;
   }
-  return newHead;
-};
+  return newListHead;
+}
 
-console.log(reverseList(listA));
+console.log(
+  reverseLL(listA)
+);
+
