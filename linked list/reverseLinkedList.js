@@ -31,4 +31,3 @@ const reverseLL = (list) => {
 console.log(
   reverseLL(listA)
 );
-
