@@ -1,3 +1,7 @@
+// STRATEGY
+// sort the array and travers to find the sum of all pairs. Search for difference between all pairs within the 
+// sorted array using binary search.
+
 let arr = [5,4,2,6,1,3,7];
 
 const binarySearch = (arr, target) => {

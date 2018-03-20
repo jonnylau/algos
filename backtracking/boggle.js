@@ -1,75 +1,77 @@
-//  It is simple backtracking algorithm
 class Boggle {
-  constructor(grid, dictionary) {
-    this.grid = grid;
-    this.dictionary = dictionary;
-    this.covered = [];
+  constructor(board) {
+    this.board = board;
+    this.allWords = new Set;
+    this.visited = [];
 
-    for (let i = 0; i < this.grid.length; i++) {
-      let coveredRow = [];
-      for (let j = 0; j < this.grid.length; j++) {
-        coveredRow.push(false);
+    for (let i = 0; i < this.board.length; i++) {
+      let row = [];
+      for (let j = 0; j < this.board.length; j++) {
+        row.push(false);
       }
-      this.covered.push(coveredRow);
+      this.visited.push(row);
     }
   }
-  
-  findAdjacentPositions(row,col) {
-    let output = [];
-    let rowBegin = Math.max(0,row - 1);
-    let colBegin = Math.max(0,col - 1);
-    let rowEnd = Math.min(this.grid.length -1, row + 1);
-    let colEnd = Math.min(this.grid.length -1, col + 1);
-    
-    for (let i = rowBegin; i <= rowEnd; i++){
-      for (let j = colBegin; j <= colEnd; j++) {
-        if (i === row && j === col) continue;
-        if (!this.covered[i][j]) {
-          output.push([i,j]);
+
+  findAdjacents(i, j) {
+    let adjacents = [];
+    let minRow = Math.max(i - 1, 0);
+    let maxRow = Math.min(i + 1, this.board.length - 1);
+    let minCol = Math.max(j - 1, 0);
+    let maxCol = Math.min(j + 1, this.board.length - 1);
+
+    for (let row = minRow; row <= maxRow; row++) {
+      for (let col = minCol; col <= maxCol; col++) {
+        if (row === i && col === j) {
+          continue;
+        } else if (this.visited[row][col] === false) {
+          adjacents.push([row, col]);
         }
       }
     }
-    console.log(output);
-    return output;
+    return adjacents;
   }
-  
-  processLetter(row,col,buildWord, foundWords) {
-    if (this.dictionary.indexOf(buildWord) !== -1) {
-      foundWords.add(buildWord);
-    }
 
-    let adjacentLetters = this.findAdjacentPositions(row,col);
-    
-    for (let i = 0; i < adjacentLetters.length; i++) {
-      let xPos = adjacentLetters[i][0];
-      let yPos = adjacentLetters[i][1]
-     
-      buildWord += this.grid[xPos][yPos];
-      this.covered[xPos][yPos] = true;
-      this.processLetter(xPos, yPos, buildWord, foundWords);
-      // found all the letters
-        // need to backtrack
-      buildWord = buildWord.slice(0,buildWord.length -1);
-      this.covered[xPos][yPos] = false;
+  findWordsFromPos(row, col, buildWord) {
+    let adjacents = this.findAdjacents(row, col);
+
+    for (let adjacent of adjacents) {
+      let adjacentIndexRow = adjacent[0];
+      let adjacentIndexCol = adjacent[1];
+      buildWord += this.board[adjacentIndexRow][adjacentIndexCol];
+      if (!this.allWords.has(buildWord)) {
+        this.allWords.add(buildWord);
+      }
+
+      this.visited[adjacentIndexRow][adjacentIndexCol] = true;
+      this.findWordsFromPos(adjacentIndexRow, adjacentIndexCol, buildWord);
+
+      buildWord = buildWord.slice(0, buildWord.length - 1);
+      this.visited[adjacentIndexRow][adjacentIndexCol] = false;
     }
   }
 
-  findWords() {
-    let foundWords = new Set([]);
-    for (let i = 0; i < this.grid.length -1; i++) {
-      for (let j = 0; j < this.grid.length - 1; j++) {
+  findAllWords(target) {
+    for (let row = 0; row < this.board.length; row++) {
+      for (let col = 0; col < this.board.length; col++) {
         let buildWord = '';
-        this.processLetter(i, j, buildWord, foundWords);        
+        this.findWordsFromPos(row, col, buildWord,target);   
       }
     }
-    return foundWords;
   }
- 
+
+  printBoard() {
+    console.log(this.board);
+  }
 }
 
+const testBoard = [
+  ['a', 'b'],
+  ['c', 'd']
+]
 
-let testBoard = [['c', 'a', 't'], ['r', 'r', 'e'], ['t', 'o', 'n']];
-let testDictionary = ['cat', 'cater', 'art', 'toon', 'moon','not','eat','ton'];
-let boggle = new Boggle(testBoard,testDictionary);
-
-console.log(boggle.findWords());
+let boggle1 = new Boggle(testBoard);
+boggle1.findAllWords();
+console.log(
+  boggle1.allWords
+);
