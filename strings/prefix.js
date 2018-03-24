@@ -42,6 +42,27 @@ const prefixKMP = (string) => {
   return prefixArr;
 }
 
-console.log(
-  prefixKMP(testString)
-)
+const substringSearchKMP = (searchString, pattern) => {
+  let prefixArr = prefixKMP(pattern);
+  let counter = 0;
+
+  const searchForPattern = (searchString, pattern, prefixArr) => {
+    // iterate through the searchString
+    let j = 0;
+    for (let i = 0; i < searchString.length; i++) {
+      if (searchString[i] === pattern[j]) {
+        j++;
+      } else {
+        while (searchString[i] !== pattern[j]) {
+          if (j === 0) break;
+          else {
+            j = prefixArr[j] - 1;
+          }
+        }
+      }
+      if (j === prefixArr.length -1) counter += 1;
+    }
+  }
+  searchForPattern(searchString, pattern, prefixArr);
+  return counter;
+}
