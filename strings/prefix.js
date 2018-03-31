@@ -25,7 +25,6 @@ const prefixKMP = (string) => {
       while (arr[i] !== arr[j]) {
         // we reset i to be the last position in the prefixArray
         i = prefixArr[i - 1] || 0;
-        console.log('not equal', i, j)
         // if they match, we set prefixArr to be 1 + length of last prefix
         if (arr[i] === arr[j]) {
           prefixArr[j] = prefixArr[i] + 1;
@@ -36,11 +35,13 @@ const prefixKMP = (string) => {
           break;
         }
       }
-      // console.log('no match j increment')
     }
   }
   return prefixArr;
 }
+console.log(prefixKMP(testString));
+
+
 
 const substringSearchKMP = (searchString, pattern) => {
   let prefixArr = prefixKMP(pattern);
