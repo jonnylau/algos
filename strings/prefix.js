@@ -41,8 +41,6 @@ const prefixKMP = (string) => {
 }
 console.log(prefixKMP(testString));
 
-
-
 const substringSearchKMP = (searchString, pattern) => {
   let prefixArr = prefixKMP(pattern);
   let counter = 0;
